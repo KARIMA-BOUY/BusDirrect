@@ -17,7 +17,7 @@ function createEmptySeats() {
     });
   }
 }
-function loadState() {
+function loadState(){
   let data = localStorage.getItem(STORAGE_KEY);
   if (data === null) {
     createEmptySeats();
@@ -51,10 +51,44 @@ function renderCabinGrid() {
     grid.appendChild(card);
   }
 }
-function validation(){
-  let nom=document.getElementById("reserve-name").value.trim();
-  if(nom===""){
-    alert("le nom est obligatoire");
+function reserveSeat() {
+  let name = document.getElementById("passenger-name").value.trim();
+  let select = document.getElementById("reserve-seat-select");
+  let seatId = null;
+  if (name === "") {
+    showMessage("reservation-message", "Le nom est obligatoire.", false);
     return;
-  }  
+  }
+  for (let i = 0; i < seats.length; i++) {
+    if (
+      seats[i].occupied === true &&
+      seats[i].passenger.toLowerCase() === name.toLowerCase()
+    ) {
+      showMessage("reservation-message", "Ce nom existe deja.", false);
+      return;
+    }
+  }
+  if (select.value === "") {
+    seatId = findFirstFreeSeat();
+  } else {
+    seatId = Number(select.value);
+  }
+  if (seatId === null) {
+    showMessage("reservation-message", "Aucun siege libre.", false);
+    return;
+  }
+  for (let i = 0; i < seats.length; i++) {
+    if (seats[i].id === seatId) {
+      if (seats[i].occupied === true) {
+        showMessage("reservation-message", "Ce siège est occupe", false);
+        return;
+      }
+      seats[i].occupied = true;
+      seats[i].passenger = name;
+      saveState();
+      renderAll();
+      showMessage("reservation-message", "Reservation reussie !", true);
+      return;
+    }
+  }
 }
