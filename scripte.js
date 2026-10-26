@@ -2,7 +2,6 @@
 const TOTAL_SEATS = 20;
 const TICKET_PRICE = 80;
 const STORAGE_KEY = "busdirect_seats";
-
 let seats = [];
 document.addEventListener("DOMContentLoaded", function () {
   loadState();
@@ -126,10 +125,8 @@ function updateSelects() {
       '<option value="' + seat.id + '">Siège #' + seat.id + '</option>';
   });
   occupiedSeats.forEach(function (seat) {
-    editPassenger.innerHTML +=
-      '<option value="' + seat.passenger + '">' + seat.passenger + '</option>';
-    deletePassenger.innerHTML +=
-      '<option value="' + seat.passenger + '">' + seat.passenger + '</option>';
+    editPassenger.innerHTML +='<option value="' + seat.passenger + '">' + seat.passenger + '</option>';
+    deletePassenger.innerHTML +='<option value="' + seat.passenger + '">' + seat.passenger + '</option>';
   });
 }
 function updateKPIs() {
