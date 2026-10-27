@@ -1,8 +1,10 @@
-
 const TOTAL_SEATS = 20;
 const TICKET_PRICE = 80;
 const STORAGE_KEY = "busdirect_seats";
 let seats = [];
+let draggedSeatId=null;
+
+
 document.addEventListener("DOMContentLoaded", function () {
   loadState();
   renderAll();
@@ -52,6 +54,7 @@ function renderSeats() {
   seats.forEach(function (seat) {
     let card = document.createElement("div");
     card.className = "p-3 rounded-xl border-2 text-center";
+    card.draggable=seat.occupied;
     if (seat.occupied) {
       card.className += " bg-rose-100 border-rose-400";
       card.textContent = "Siège #" + seat.id + " - " + seat.passenger;
@@ -59,6 +62,22 @@ function renderSeats() {
       card.className += " bg-emerald-50 border-emerald-400";
       card.textContent = "Siège #" + seat.id + " - Libre";
     }
+    card.addEventListener("dragstart",function(){
+      if(seat.occupied){
+        draggedSeatId=seat.id;
+      }
+    });
+    card.addEventListener("dragover",function(event){
+      event.preventDefault();
+    });
+    card.addEventListener("drop", function(event){
+      event.preventDefault();
+
+      if(draggedSeatId!==null){
+        moveReservation(draggedSeatId,seat.id);
+      }
+      draggedSeatId=null;
+    })
     grid.appendChild(card);
   });
 }
@@ -144,7 +163,6 @@ function renderTickets() {
   let container = document.getElementById("tickets-container");
   let emptyMessage = document.getElementById("no-tickets-msg");
   let search = document.getElementById("search-ticket").value.toLowerCase();
-
   container.innerHTML = "";
   let tickets = seats.filter(function (seat) {
     return seat.occupied &&
@@ -238,3 +256,26 @@ function deleteReservation() {
   document.getElementById("form-delete").reset();
   showMessage("msg-delete", "Réservation supprimée !");
 }
+function moveReservation(oldSeatId,newSeatId){
+  let Oldseat=seats.find(function(seat){
+    return seat.id===oldSeatId;
+  });
+  let newSeat=seats.find(function(seat){
+    return seat.id===newSeatId;
+  })
+  if(!Oldseat || !newSeat){
+    return;
+  }
+  if(!Oldseat.occupied || newSeat.occupied){
+    showMessage("msg-reserve","siege indisponible .");
+    return;
+  }
+  newSeat.occupied=true;
+  newSeat.passenger=Oldseat.passenger;
+  Oldseat.occupied=false;
+  Oldseat.passenger="";
+  saveState();
+  renderAll();
+  showMessage("msg-reserve","reservation deplacer");}
+
+

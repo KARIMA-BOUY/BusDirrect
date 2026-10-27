@@ -38,11 +38,11 @@
             </div>
           </div>
           <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
-            <button id="nav-booking" onclick="switchTab('booking')" class="px-4 py-2 text-sm font-bold rounded-lg transition-all bg-indigo-900 text-white shadow-sm flex items-center gap-2">
+            <button id="nav-booking"  class="px-4 py-2 text-sm font-bold rounded-lg transition-all bg-indigo-900 text-white shadow-sm flex items-center gap-2">
               <i class="fa-solid fa-chair text-amber-400"></i>
               <span class="hidden sm:inline">Réservations</span>
             </button>
-            <button id="nav-tickets" onclick="switchTab('tickets')" class="px-4 py-2 text-sm font-bold rounded-lg transition-all text-slate-600 hover:text-indigo-900 flex items-center gap-2">
+            <button id="nav-tickets" class="px-4 py-2 text-sm font-bold rounded-lg transition-all text-slate-600 hover:text-indigo-900 flex items-center gap-2">
               <i class="fa-solid fa-ticket"></i>
               <span class="hidden sm:inline">Billets</span>
             </button>
@@ -78,7 +78,6 @@
           </div>
         </div>
         <div class="text-xs text-slate-500 italic">
-           Astuce: Cliquez ou glissez-déposez (Drag & Drop) un passager pour modifier son siège.
         </div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -89,7 +88,6 @@
                 <i class="fa-solid fa-bus text-indigo-900"></i>
                 Plan de la cabine (20 Sièges)
               </h2>
-              <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md">Avant du bus </span>
             </div>
             <div class="flex justify-end mb-6 pr-2">
               <div class="bg-indigo-950 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 shadow-sm">
@@ -188,7 +186,7 @@
 
         <div class="relative w-full md:w-64">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
-          <input type="text" id="search-ticket" oninput="renderTickets()" placeholder="Chercher un passager..." class="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-900">
+          <input type="text" id="search-ticket"  placeholder="Chercher un passager..." class="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-900">
         </div>
       </div>
       <div id="tickets-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
